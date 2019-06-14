@@ -16,4 +16,42 @@ public class Game {
         return this.players.size();
     }
 
+    public void dealCards() {
+        for (Player player : this.players){
+            Card card = dealer.dealCard(deck);
+            player.addCard(card);
+        }
+    }
+
+    public Player checkWinner() {
+        if (this.checkDraw()){
+            return null;
+        }
+
+        Player winner = this.players.get(0);
+
+        for (Player player : this.players){
+            if(player.valueOfHand() > winner.valueOfHand()){
+                winner = player;
+            }
+        }
+
+
+        return winner;
+    }
+
+    public boolean checkDraw() {
+        Boolean draw = false;
+
+        for (Player player : this.players){
+            if (player.valueOfHand() == players.get(0).valueOfHand()){
+                draw = true;
+            }
+            else {
+                draw = false;
+            }
+        }
+
+        return draw;
+    }
 }

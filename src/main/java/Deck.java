@@ -8,6 +8,8 @@ public class Deck {
 
     public Deck(){
         this.cards = new ArrayList<Card>();
+        populateDeck();
+        shuffleDeck();
     }
 
     public int countCards() {
@@ -33,4 +35,6 @@ public class Deck {
     public void shuffleDeck(){
         Collections.shuffle(this.cards);
     }
+
+
 }
