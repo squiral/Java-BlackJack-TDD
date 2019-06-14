@@ -18,4 +18,8 @@ public enum RankType {
     RankType(int value){
         this.value = value;
     }
+
+    public int value() {
+        return this.value;
+    }
 }
