@@ -9,6 +9,7 @@ public class GameTest {
 
     Card highCard;
     Card lowCard;
+    Card bustCard;
     Game game;
     Deck deck;
     Dealer dealer;
@@ -21,6 +22,7 @@ public class GameTest {
     public void before(){
 
         highCard = new Card(SuitType.DIAMONDS, RankType.QUEEN);
+        bustCard = new Card(SuitType.HEARTS, RankType.QUEEN);
         lowCard = new Card(SuitType.DIAMONDS, RankType.FIVE);
 
         deck = new Deck();
@@ -70,7 +72,18 @@ public class GameTest {
     }
 
     @Test
-    public void dealerCanWin(){
+    public void playerCanTwist(){
+        player1.addCard(highCard);
+        game.twist(player1);
+        assertEquals(2, player1.countHand());
+    }
+
+    @Test
+    public void playerCanGoBust(){
+        player1.addCard(highCard);
+        player1.addCard(lowCard);
+        player1.addCard(bustCard);
+        assertEquals(true, game.isBust(player1));
 
     }
 
