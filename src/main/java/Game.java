@@ -16,7 +16,7 @@ public class Game {
         return this.players.size();
     }
 
-    public void dealCards() {
+    public void dealCardstoPlayers() {
         for (Player player : this.players){
             Card card = dealer.dealCard(deck);
             player.addCard(card);

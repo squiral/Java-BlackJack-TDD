@@ -43,7 +43,7 @@ public class GameTest {
 
     @Test
     public void canDealPlayersCards(){
-        game.dealCards();
+        game.dealCardstoPlayers();
         assertEquals(1, player1.countHand());
         assertEquals(1, player2.countHand());
     }
