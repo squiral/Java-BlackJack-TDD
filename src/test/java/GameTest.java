@@ -42,10 +42,15 @@ public class GameTest {
     }
 
     @Test
-    public void canDealPlayersCardsAndDepleteDeck(){
+    public void canDealPlayersCards(){
         game.dealCards();
         assertEquals(1, player1.countHand());
         assertEquals(1, dealer.countHand());
+    }
+
+    @Test
+    public void dealingWillDepleteDeck(){
+        game.dealCards();
 
         assertEquals(50, deck.countCards());
     }
@@ -79,6 +84,13 @@ public class GameTest {
     }
 
     @Test
+    public void dealerCanTwist(){
+        dealer.addCard(highCard);
+        game.twist(dealer);
+        assertEquals(2, dealer.countHand());
+    }
+
+    @Test
     public void playerCanGoBust(){
         player1.addCard(highCard);
         player1.addCard(lowCard);
@@ -86,6 +98,20 @@ public class GameTest {
         assertEquals(true, game.isBust(player1));
 
     }
+
+    @Test
+    public void dealerWillTwistIf16_OrLess(){
+        Card card1 = new Card(SuitType.CLUBS, RankType.SIX);
+        Card card2 = new Card(SuitType.CLUBS, RankType.TEN);
+        dealer.addCard(card1);
+        dealer.addCard(card2);
+        game.turn(dealer);
+        assertEquals(3, dealer.countHand());
+        game.turn(dealer);
+        assertEquals(3, dealer.countHand());
+    }
+
+
 
 
 }

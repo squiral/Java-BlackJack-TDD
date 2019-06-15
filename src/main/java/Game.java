@@ -66,6 +66,11 @@ public class Game {
         player.addCard(card);
     }
 
+    public void twist(Dealer dealer) {
+        Card card = dealer.dealCard(deck);
+        dealer.addCard(card);
+    }
+
     public boolean isBust(Player player) {
         Boolean bust = false;
         if (player.valueOfHand() > 21){
@@ -73,5 +78,11 @@ public class Game {
         }
 
         return bust;
+    }
+
+    public void turn(Dealer dealer) {
+        if (dealer.valueOfHand() <= 16){
+            twist(dealer);
+        }
     }
 }
