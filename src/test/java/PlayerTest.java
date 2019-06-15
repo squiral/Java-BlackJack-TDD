@@ -41,5 +41,14 @@ public class PlayerTest {
         player.addCard(card3);
         assertEquals(15, player.valueOfHand());
     }
+
+    @Test
+    public void canClearHand(){
+        player.addCard(card1);
+        player.addCard(card2);
+        player.addCard(card3);
+        player.clearHand();
+        assertEquals(0, player.countHand());
+    }
     
 }

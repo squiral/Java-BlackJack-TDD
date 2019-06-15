@@ -20,11 +20,17 @@ public class DealerTest {
     @Test
     public void canAddCard(){
         dealer.addCard(card);
-        assertEquals(1, dealer.countCards());
+        assertEquals(1, dealer.countHand());
     }
 
     @Test
     public void canDealCard(){
         assertTrue(dealer.dealCard(deck) instanceof Card);
+    }
+
+    @Test
+    public void canGetValueOfHand(){
+        dealer.addCard(card);
+        assertEquals(10, dealer.valueOfHand());
     }
 }

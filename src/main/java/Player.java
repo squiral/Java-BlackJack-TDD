@@ -32,4 +32,8 @@ public class Player {
 
         return total;
     }
+
+    public void clearHand() {
+        this.hand.clear();
+    }
 }

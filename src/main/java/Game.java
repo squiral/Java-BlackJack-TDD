@@ -16,14 +16,17 @@ public class Game {
         return this.players.size();
     }
 
-    public void dealCardstoPlayers() {
+    public void dealCards() {
+        Card dealerCard = dealer.dealCard(deck);
+        dealer.addCard(dealerCard);
+
         for (Player player : this.players){
             Card card = dealer.dealCard(deck);
             player.addCard(card);
         }
     }
 
-    public Player checkWinner() {
+    public Object checkWinner() {
         if (this.checkDraw()){
             return null;
         }
@@ -36,15 +39,18 @@ public class Game {
             }
         }
 
-
-        return winner;
+        if (winner.valueOfHand() > dealer.valueOfHand()){
+            return winner;
+        } else {
+            return dealer;
+        }
     }
 
     public boolean checkDraw() {
         Boolean draw = false;
 
         for (Player player : this.players){
-            if (player.valueOfHand() == players.get(0).valueOfHand()){
+            if (player.valueOfHand() == players.get(0).valueOfHand() && player.valueOfHand() == dealer.valueOfHand() ){
                 draw = true;
             }
             else {

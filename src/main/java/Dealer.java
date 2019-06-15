@@ -16,7 +16,17 @@ public class Dealer {
         return deck.dealCard();
     }
 
-    public int countCards() {
+    public int countHand() {
         return this.cards.size();
+    }
+
+    public int valueOfHand() {
+        int total = 0;
+        for (Card card : this.cards){
+            int value = card.getValue();
+            total += value;
+        }
+
+        return total;
     }
 }

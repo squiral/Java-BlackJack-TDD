@@ -15,13 +15,7 @@ public class DeckTest {
     }
 
     @Test
-    public void deckStartsEmpty(){
-        assertEquals(0, deck.countCards());
-    }
-
-    @Test
-    public void canPopulateDeck(){
-        deck.populateDeck();
+    public void deckStartsPopulated(){
         assertEquals(52, deck.countCards());
     }
 

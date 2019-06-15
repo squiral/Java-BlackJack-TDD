@@ -27,38 +27,52 @@ public class GameTest {
         dealer = new Dealer();
 
         player1 = new Player("Player 1");
-        player2 = new Player("Player 2");
 
         players = new ArrayList<Player>();
         players.add(player1);
-        players.add(player2);
 
         game = new Game(deck, dealer, players);
     }
 
     @Test
     public void canHavePlayers(){
-        assertEquals(2, game.countPlayers());
+        assertEquals(1, game.countPlayers());
     }
 
     @Test
-    public void canDealPlayersCards(){
-        game.dealCardstoPlayers();
+    public void canDealPlayersCardsAndDepleteDeck(){
+        game.dealCards();
         assertEquals(1, player1.countHand());
-        assertEquals(1, player2.countHand());
+        assertEquals(1, dealer.countHand());
+
+        assertEquals(50, deck.countCards());
     }
 
     @Test
-    public void canCheckWinner(){
+    public void canCheckWinnerDealerWins(){
         player1.addCard(lowCard);
-        player2.addCard(highCard);
-        assertEquals(player2, game.checkWinner());
+        dealer.addCard(highCard);
+        assertEquals(dealer, game.checkWinner());
+    }
+
+    @Test
+    public void canCheckWinnerPlayer1Wins(){
+        player1.addCard(highCard);
+        dealer.addCard(lowCard);
+        assertEquals(player1, game.checkWinner());
     }
 
     @Test
     public void canCheckDraw(){
         player1.addCard(lowCard);
-        player2.addCard(lowCard);
+        dealer.addCard(lowCard);
         assertEquals(null, game.checkWinner());
     }
+
+    @Test
+    public void dealerCanWin(){
+
+    }
+
+
 }
