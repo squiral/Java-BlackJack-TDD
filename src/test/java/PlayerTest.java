@@ -50,5 +50,16 @@ public class PlayerTest {
         player.clearHand();
         assertEquals(0, player.countHand());
     }
+
+    @Test
+    public void startsNotBust(){
+        assertEquals(false, player.isBust());
+    }
+
+    @Test
+    public void canBeBust(){
+        player.goesBust();
+        assertEquals(true, player.isBust());
+    }
     
 }

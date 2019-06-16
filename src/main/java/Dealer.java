@@ -3,9 +3,11 @@ import java.util.ArrayList;
 public class Dealer {
 
     private ArrayList<Card> cards;
+    private Boolean bust;
 
     public Dealer(){
         this.cards = new ArrayList<Card>();
+        this.bust = false;
     }
 
     public void addCard(Card card){
@@ -28,5 +30,13 @@ public class Dealer {
         }
 
         return total;
+    }
+
+    public void goesBust() {
+        this.bust = true;
+    }
+
+    public boolean isBust() {
+        return this.bust;
     }
 }

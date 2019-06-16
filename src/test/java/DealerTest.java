@@ -33,4 +33,15 @@ public class DealerTest {
         dealer.addCard(card);
         assertEquals(10, dealer.valueOfHand());
     }
+
+    @Test
+    public void startsNotBust() {
+        assertEquals(false, dealer.isBust());
+    }
+
+    @Test
+    public void canBeBust() {
+        dealer.goesBust();
+        assertEquals(true, dealer.isBust());
+    }
 }

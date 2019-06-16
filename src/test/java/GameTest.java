@@ -29,6 +29,7 @@ public class GameTest {
         dealer = new Dealer();
 
         player1 = new Player("Player 1");
+        player2 = new Player("Player 2");
 
         players = new ArrayList<Player>();
         players.add(player1);
@@ -91,11 +92,11 @@ public class GameTest {
     }
 
     @Test
-    public void playerCanGoBust(){
+    public void playerGoesBustOver21(){
         player1.addCard(highCard);
         player1.addCard(lowCard);
         player1.addCard(bustCard);
-        assertEquals(true, game.isBust(player1));
+        assertEquals(true, game.isPlayerBust(player1));
 
     }
 
@@ -110,6 +111,20 @@ public class GameTest {
         game.turn(dealer);
         assertEquals(3, dealer.countHand());
     }
+
+    @Test
+    public void dealerGoesBustOver21(){
+        dealer.addCard(highCard);
+        dealer.addCard(lowCard);
+        dealer.addCard(bustCard);
+        assertEquals(true, game.isDealerBust(dealer));
+    }
+
+
+
+
+
+
 
 
 

@@ -1,13 +1,17 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.ArrayList;
 
 public class Player {
 
     private String name;
     private ArrayList<Card> hand;
+    private Boolean bust;
 
     public Player(String name){
         this.name = name;
         this.hand = new ArrayList<Card>();
+        this.bust = false;
     }
 
 
@@ -35,5 +39,13 @@ public class Player {
 
     public void clearHand() {
         this.hand.clear();
+    }
+
+    public void goesBust() {
+        this.bust = true;
+    }
+
+    public boolean isBust() {
+        return this.bust;
     }
 }

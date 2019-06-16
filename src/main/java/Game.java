@@ -71,13 +71,21 @@ public class Game {
         dealer.addCard(card);
     }
 
-    public boolean isBust(Player player) {
-        Boolean bust = false;
+    public boolean isPlayerBust(Player player) {
         if (player.valueOfHand() > 21){
-            bust = true;
+            player.goesBust();
         }
 
-        return bust;
+        return player.isBust();
+    }
+
+    public boolean isDealerBust(Dealer dealer) {
+        if (dealer.valueOfHand() > 21){
+            dealer.goesBust();
+        }
+
+        return dealer.isBust();
+
     }
 
     public void turn(Dealer dealer) {
