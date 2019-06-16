@@ -44,4 +44,15 @@ public class DealerTest {
         dealer.goesBust();
         assertEquals(true, dealer.isBust());
     }
+
+    @Test
+    public void startsNotSticking() {
+        assertEquals(false, dealer.isSticking());
+    }
+
+    @Test
+    public void canStick() {
+        dealer.stick();
+        assertEquals(true, dealer.isSticking());
+    }
 }

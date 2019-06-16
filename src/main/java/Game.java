@@ -17,12 +17,16 @@ public class Game {
     }
 
     public void dealCards() {
-        Card dealerCard = dealer.dealCard(deck);
-        dealer.addCard(dealerCard);
+        Card dealerCard1 = dealer.dealCard(deck);
+        Card dealerCard2 = dealer.dealCard(deck);
+        dealer.addCard(dealerCard1);
+        dealer.addCard(dealerCard2);
 
         for (Player player : this.players){
-            Card card = dealer.dealCard(deck);
-            player.addCard(card);
+            Card card1 = dealer.dealCard(deck);
+            Card card2 = dealer.dealCard(deck);
+            player.addCard(card1);
+            player.addCard(card2);
         }
     }
 
@@ -31,19 +35,25 @@ public class Game {
             return null;
         }
 
-        Player winner = this.players.get(0);
+        ArrayList<Player> nonBustPlayers = this.nonBustPlayers();
 
-        for (Player player : this.players){
+
+        Player winner = nonBustPlayers.get(0);
+
+        for (Player player : nonBustPlayers){
             if(player.valueOfHand() > winner.valueOfHand()){
                 winner = player;
             }
         }
-
-        if (winner.valueOfHand() > dealer.valueOfHand()){
-            return winner;
-        } else {
-            return dealer;
+        if (!this.isDealerBust(dealer)) {
+            if (winner.valueOfHand() > dealer.valueOfHand()) {
+                return winner;
+            } else {
+                return dealer;
+            }
         }
+
+        return winner;
     }
 
     public boolean checkDraw() {
@@ -88,9 +98,31 @@ public class Game {
 
     }
 
-    public void turn(Dealer dealer) {
+    public void dealerTurn(Dealer dealer) {
         if (dealer.valueOfHand() <= 16){
             twist(dealer);
+        } else {
+            dealer.stick();
         }
+    }
+
+    public void playerTurn(Player player, String choice) {
+        if (choice == "twist") {
+            twist(player);
+        } else if (choice == "stick") {
+            player.stick();
+        }
+    }
+
+    public ArrayList<Player> nonBustPlayers() {
+        ArrayList<Player> nonBustPlayers = new ArrayList<Player>();
+
+        for (Player player : this.players) {
+            if (!this.isPlayerBust(player)) {
+                nonBustPlayers.add(player);
+            }
+        }
+
+        return nonBustPlayers;
     }
 }

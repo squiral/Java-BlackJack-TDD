@@ -15,21 +15,23 @@ public class GameTest {
     Dealer dealer;
     Player player1;
     Player player2;
+    Player player3;
     ArrayList<Player> players;
 
 
     @Before
     public void before(){
 
-        highCard = new Card(SuitType.DIAMONDS, RankType.QUEEN);
-        bustCard = new Card(SuitType.HEARTS, RankType.QUEEN);
-        lowCard = new Card(SuitType.DIAMONDS, RankType.FIVE);
+        highCard = new Card(SuitType.DIAMONDS, RankType.QUEEN); //10
+        bustCard = new Card(SuitType.HEARTS, RankType.QUEEN);   //10
+        lowCard = new Card(SuitType.DIAMONDS, RankType.FIVE);   //5
 
         deck = new Deck();
         dealer = new Dealer();
 
         player1 = new Player("Player 1");
         player2 = new Player("Player 2");
+        player3 = new Player("Player 3");
 
         players = new ArrayList<Player>();
         players.add(player1);
@@ -45,15 +47,15 @@ public class GameTest {
     @Test
     public void canDealPlayersCards(){
         game.dealCards();
-        assertEquals(1, player1.countHand());
-        assertEquals(1, dealer.countHand());
+        assertEquals(2, player1.countHand());
+        assertEquals(2, dealer.countHand());
     }
 
     @Test
     public void dealingWillDepleteDeck(){
         game.dealCards();
 
-        assertEquals(50, deck.countCards());
+        assertEquals(48, deck.countCards());
     }
 
     @Test
@@ -106,9 +108,9 @@ public class GameTest {
         Card card2 = new Card(SuitType.CLUBS, RankType.TEN);
         dealer.addCard(card1);
         dealer.addCard(card2);
-        game.turn(dealer);
+        game.dealerTurn(dealer);
         assertEquals(3, dealer.countHand());
-        game.turn(dealer);
+        game.dealerTurn(dealer);
         assertEquals(3, dealer.countHand());
     }
 
@@ -119,6 +121,48 @@ public class GameTest {
         dealer.addCard(bustCard);
         assertEquals(true, game.isDealerBust(dealer));
     }
+
+    @Test
+    public void playerCanStickOrTwistInTurn() {
+        player1.addCard(lowCard);
+        player1.addCard(highCard);
+        assertEquals(2, player1.countHand());
+        game.playerTurn(player1, "twist");
+        assertEquals(3, player1.countHand());
+        game.playerTurn(player1, "stick");
+        assertEquals(3, player1.countHand());
+        assertEquals(true, player1.isSticking());
+    }
+
+    @Test
+    public void gameCanFilterBustPlayers(){
+        players.add(player2);
+        players.add(player3);
+        player2.goesBust();
+        assertEquals(2, game.nonBustPlayers().size());
+    }
+
+    @Test
+    public void gameWillChooseNonBustPlayerAsWinner() {
+        players.add(player2);
+
+        //player 1 has 25 and is bust
+        player1.addCard(lowCard);
+        player1.addCard(highCard);
+        player1.addCard(bustCard);
+
+
+        //player 2 has 15 and is not bust
+        player2.addCard(highCard);
+        player2.addCard(lowCard);
+
+        //dealer has 10 and is not bust
+        dealer.addCard(highCard);
+
+        assertEquals(player2, game.checkWinner());
+    }
+
+
 
 
 

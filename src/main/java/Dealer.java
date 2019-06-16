@@ -4,10 +4,12 @@ public class Dealer {
 
     private ArrayList<Card> cards;
     private Boolean bust;
+    private Boolean sticking;
 
     public Dealer(){
         this.cards = new ArrayList<Card>();
         this.bust = false;
+        this.sticking = false;
     }
 
     public void addCard(Card card){
@@ -38,5 +40,13 @@ public class Dealer {
 
     public boolean isBust() {
         return this.bust;
+    }
+
+    public void stick() {
+        this.sticking = true;
+    }
+
+    public boolean isSticking() {
+        return this.sticking;
     }
 }

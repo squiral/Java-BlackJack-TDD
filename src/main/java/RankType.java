@@ -22,4 +22,6 @@ public enum RankType {
     public int value() {
         return this.value;
     }
+
+
 }

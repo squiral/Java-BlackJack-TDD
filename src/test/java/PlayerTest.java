@@ -61,5 +61,16 @@ public class PlayerTest {
         player.goesBust();
         assertEquals(true, player.isBust());
     }
+
+    @Test
+    public void startsNotSticking(){
+        assertEquals(false, player.isSticking());
+    }
+
+    @Test
+    public void canStick() {
+        player.stick();
+        assertEquals(true, player.isSticking());
+    }
     
 }
